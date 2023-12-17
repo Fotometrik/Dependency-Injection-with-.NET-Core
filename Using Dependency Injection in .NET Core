@@ -1,0 +1,39 @@
+using System;
+
+public interface ILogger
+{
+    void Log(string message);
+}
+
+public class ConsoleLogger : ILogger
+{
+    public void Log(string message)
+    {
+        Console.WriteLine($"Logging: {message}");
+    }
+}
+
+public class Service
+{
+    private readonly ILogger _logger;
+
+    public Service(ILogger logger)
+    {
+        _logger = logger;
+    }
+
+    public void DoSomething()
+    {
+        _logger.Log("Doing something...");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        ILogger logger = new ConsoleLogger();
+        Service service = new Service(logger);
+        service.DoSomething();
+    }
+}
