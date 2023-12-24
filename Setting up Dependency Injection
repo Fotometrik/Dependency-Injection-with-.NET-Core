@@ -1,0 +1,28 @@
+using Microsoft.Extensions.DependencyInjection;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Create a service collection
+        var services = new ServiceCollection();
+
+        // Register dependencies
+        services.AddSingleton<ILogger, ConsoleLogger>(); // Registers ConsoleLogger as the implementation for ILogger
+
+        // Build the service provider
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Resolve the dependency
+        var logger = serviceProvider.GetService<ILogger>();
+
+        // Use the resolved dependency
+        logger.Log("Hello, Dependency Injection!");
+
+        // Dispose the service provider if necessary
+        if (serviceProvider is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+    }
+}
